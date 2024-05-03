@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#define Max_cards 52
-#define Max_ranks 13
+#define max_cards 52
+#define max_ranks 13
 
 typedef struct { // Creates a structure with two components: Rank and Suit
  int rank;
@@ -15,12 +15,12 @@ typedef struct { // Creates a structure with two components: Rank and Suit
 
 enum suit {Hearts = 3, Diamonds, Clubs, Spades}; // Enumirates the suits
 
-void initialize(Card initial_deck[Max_cards]);
-void shuffle(Card shuffled_deck[Max_cards]);
+void initialize(Card initial_deck[max_cards]);
+void shuffle(Card shuffled_deck[max_cards]);
 
-int player_distribution(int card_number, Card shuffled_deck[Max_cards], Card player_one[4], Card player_two[4], Card player_three[4], Card player_four[4]); // For distributing cards among players +
+int player_distribution(int card_number, Card shuffled_deck[max_cards], Card player_one[4], Card player_two[4], Card player_three[4], Card player_four[4]); // For distributing cards among players +
 
-int board_distribution(int card_number, Card board_cards[20], Card shuffled_deck[Max_cards]); // Distributes cards on the board
+int board_distribution(int card_number, Card board_cards[20], Card shuffled_deck[max_cards]); // Distributes cards on the board
 
 void board_display(Card board_cards[20]); // Displays the cards that on the board
 
@@ -35,7 +35,7 @@ int adviced_card(Card player_cards[4], Card board_cards[20]);
 
 
 int main(void) {
-    Card initial_deck[Max_cards], shuffled_deck[Max_cards], player_one[4], player_two[4], player_three[4], player_four[4], board_cards[20];
+    Card initial_deck[max_cards], shuffled_deck[max_cards], player_one[4], player_two[4], player_three[4], player_four[4], board_cards[20];
     int turn = 0, player_card_index, player1_points = 0, player2_points = 0, player3_points = 0, player4_points = 0, winner = 0;
     printf(" ...Welcome to the Bastra game... \n");
     sleep(1);
@@ -364,7 +364,7 @@ int main(void) {
     }
 }
 // Initializes the deck
-void initialize(Card initial_deck[Max_cards]) {
+void initialize(Card initial_deck[max_cards]) {
     int cards_number = 0;
     for (int suits = 3; suits <= 6; suits++) {
         for (int ranks = 1; ranks <= 13; ranks++) {
@@ -385,8 +385,8 @@ void initialize(Card initial_deck[Max_cards]) {
     }
 }
 // Shuffles the deck
-void shuffle(Card shuffled_deck[Max_cards]) {
-    int hearts_count = Max_ranks, diamonds_count = Max_ranks, clubs_count = Max_ranks, spades_count = Max_ranks, ranks_list[Max_cards];
+void shuffle(Card shuffled_deck[max_cards]) {
+    int hearts_count = max_ranks, diamonds_count = max_ranks, clubs_count = max_ranks, spades_count = max_ranks, ranks_list[max_cards];
     int s_suit, s_rank;
     for (int si = 0; si <= 51; si++) {// Gives a value for all cards to avoid duplicates in shuffling
         shuffled_deck[si].suit = 30;
@@ -430,7 +430,7 @@ void shuffle(Card shuffled_deck[Max_cards]) {
             while (true) {
                 int accept = 1, number_count = 0;
                 s_rank = rand() % 13 + 1;
-                for (int i = 0; i <= Max_cards; i++) {
+                for (int i = 0; i <= max_cards; i++) {
                     if (ranks_list[i] == s_rank)
                     number_count++;
                 }
@@ -469,7 +469,7 @@ void shuffle(Card shuffled_deck[Max_cards]) {
     }
 }
 // Distributes cards among players
-int player_distribution(int card_number, Card shuffled_deck[Max_cards], Card player_one[4], Card player_two[4], Card player_three[4], Card player_four[4]) {
+int player_distribution(int card_number, Card shuffled_deck[max_cards], Card player_one[4], Card player_two[4], Card player_three[4], Card player_four[4]) {
     for (int p = 1; p <= 4; p++) {
         for (int card_index = 0; card_index <= 3; card_index++) {
             switch (p) 
@@ -506,7 +506,7 @@ int player_distribution(int card_number, Card shuffled_deck[Max_cards], Card pla
 }
 
 // Distributes cards on the board
-int board_distribution(int card_number, Card board_cards[20], Card shuffled_deck[Max_ranks]) {
+int board_distribution(int card_number, Card board_cards[20], Card shuffled_deck[max_ranks]) {
     if (board_cards[0].rank == 0) {
         for (int b = 0; b <= 3; b++) {
             board_cards[b].suit = shuffled_deck[card_number].suit;
